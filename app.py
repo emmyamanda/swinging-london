@@ -61,6 +61,8 @@ def login():
                     "password")):
                     session["user"] = request.form.get(
                         "username").lower()
+                    return redirect(url_for(
+                            "profile", username=session["user"]))    
 
             else:
                 flash("Incorrect username and/or password")
@@ -82,6 +84,13 @@ def profile(username):
         return render_template("profile.html", username=username)
 
     return redirect(url_for("login"))
+
+
+@app.route("/logout")
+def logout():
+    flash("You have been logged out")
+    session.pop("user")
+    return redirect(url_for("get_tips"))
 
 
 if __name__ == "__main__":
