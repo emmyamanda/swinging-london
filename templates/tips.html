@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tips</title>
+</head>
+<body>
+    {% for tips in tips %}
+        {{ tips.tip_name }}<br>
+        {{ tips.category_name }}<br>
+        {{ tips.description_short }}<br>
+        {{ tips.description_long }}<br>
+        {{ tips.add_photo }}<br>
+        {{ tips.add_date }}<br>
+    {% endfor %}
+</body>
+</html>
