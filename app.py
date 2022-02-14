@@ -19,10 +19,19 @@ mongo = PyMongo(app)
 
 
 @app.route("/")
+
+
 @app.route("/get_tips")
 def get_tips():
     tips = mongo.db.tips.find()
     return render_template("tips.html", tips=tips)
+
+
+@app.route('/get_tips/<category_name>')
+def type_tips(category_name):
+    category = list(mongo.db.tips.find({
+        "category_name": category_name}))
+    return render_template("tips.html", category=category)    
 
 
 @app.route("/register", methods=["GET", "POST"])
