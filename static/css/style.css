@@ -2,3 +2,14 @@
 body {
     font-family: 'Roboto', sans-serif;
 }
+
+.hero-pic {
+    background-image: url(../images/london-hero.jpeg);
+    height: 57vh;
+    background-size: cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+}

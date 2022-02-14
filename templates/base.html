@@ -15,7 +15,7 @@
 <body>
 
     <header>
-        <nav class="nav-extended #d1c4e9 deep-purple lighten-4">
+        <nav class="nav-extended grey darken-4">
             <div class="nav-wrapper">
                 <a href="{{ url_for('get_tips') }}" class="brand-logo center">Swinging London</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
@@ -60,7 +60,7 @@
         {% endwith %}
     </section>
 
-    <main class="container">
+    <main>
         {% block content %}
         {% endblock %}
     </main>
