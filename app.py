@@ -103,6 +103,27 @@ def logout():
     return redirect(url_for("get_tips"))
 
 
+@app.route("/add_tips", methods=["GET", "POST"])
+def add_tips():
+    if request.method == "POST":
+        tips = {
+            "category_name": request.form.get("category_name"),
+            "tips_name": request.form.get("tips_name"),
+            "tips_little": request.form.get("tips_little"),
+            "tips_longer": request.form.get("tips_longer"),
+            "tips_img": request.form.get("tips_img"),
+            "tips_date": request.form.get("tips_date"),
+            "created_by": session["user"]
+        }
+        mongo.db.tips.insert_one(tips)
+        flash("Tip Successfully Added")
+        return redirect(url_for("profile",
+                username=session["user"]))
+
+    categories = mongo.db.categories.find().sort("tips_date", 1)
+    return render_template("add_tips.html", categories=categories)
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),

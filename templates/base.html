@@ -23,7 +23,7 @@
                     <li><a href="{{ url_for('get_tips') }}">Home</a></li>
                     {% if session.user %}
                         <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
-                        <li><a href="#">Add Spot</a></li>
+                        <li><a href="{{ url_for('add_tips') }}">Add Spot</a></li>
                         <li><a href="#">Manage</a></li>
                         <li><a href="{{ url_for('logout') }}">Logout</a></li>
                     {% else %}
@@ -38,7 +38,7 @@
             <li><a href="{{ url_for('get_tips') }}">Home</a></li>
             {% if session.user %}
                 <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
-                <li><a href="#">Add Spot</a></li>
+                <li><a href="{{ url_for('add_tips') }}">Add Spot</a></li>
                 <li><a href="#">Manage</a></li>
                 <li><a href="{{ url_for('logout') }}">Logout</a></li>
             {% else %}
