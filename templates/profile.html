@@ -3,12 +3,48 @@
 
     <div class="row">
         <div class="col s12 m8 offset-m2">
-            <div class="card-panel">
                 <h1 class="center-align">
                     {{ username }} World!
                 </h1>
-            </div>
         </div>
     </div>
+    <div class="add-tip-btn center-align">
+        <a class="btn-large white black-text" href="{{ url_for('add_tips') }}">Add a tip</a>
+     </div>
+     <h3 class="center-align">Your Tips:</h3>
+     <div class="container profile-tips">
+        <div class="row">
+           {% for tip in tips %}   
+           {% if session.user|lower == tips.created_by|lower %}      
+           <div class="col s12 m4">
+              <div class="card">
+                 <div class="card-image">
+                    <a href="{{url_for('tips_page', tips_id=tips._id)}}">
+                    <img src="{{tips.tips_img}}" alt="{{tips.tips_name}}">   
+                    </a>                 
+                 </div>
+                 <div class="card-content">
+                    <p class="uppercase">{{tips.category_name}}</p>
+                    <p><strong>{{ tips.tips_name }}</strong></p>
+                    <p>{{ tips.tips_short }}</p>
+                 </div>
+                 <div class="card-button center-align">    
+                    <a href="{{ url_for('edit_tips', tips_id=tips._id) }}" class="btn-small white black-text">Edit</a> 
+                    <a href="#modal{{loop.index}}" class="btn-small grey darken-4 white-text modal-trigger">Delete</a>  
+                 </div>
+                 <!-- Modal Structure -->
+                 <div id="modal{{loop.index}}" class="modal">
+                    <div class="modal-content center-align">
+                       <h4>Are you sure you want to delete {{ tip.tip_name }}? </h4>
+                       <a href="{{ url_for('delete_tips', tips_id=tips._id) }}" class="modal-close waves-effect waves-green btn-small white black-text ">Yes</a>
+                       <a href="{{ url_for('profile', username=session['user']) }}" class="modal-close waves-effect waves-green btn-small grey darken-4 white-text">No</a>
+                    </div>
+                 </div>
+              </div>
+           </div>
+           {% endif %}
+           {% endfor %}
+        </div>
+     </div>
 
 {% endblock %}

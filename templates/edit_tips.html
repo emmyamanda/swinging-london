@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h3 class="dark-grey-text center-align">Add Spot</h3>
+    <h3 class="dark-grey-text center-align">Edit Spot</h3>
 
     <div class="row card-panel">
         <form class="col s12" method="POST" action="{{ url_for('add_tips') }}">
@@ -12,7 +12,11 @@
 					<select id="category_name" name="category_name" class="validate" required>
                         <option value="" disabled selected>Choose Category</option>
                         {% for category in categories %}
+                        {% if category.category_name == tip.category_name %}
+                            <option value="{{ category.category_name }}" selected>{{ category.category_name }}</option>
+                        {% else %}
                             <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                        {% endif %}
                         {% endfor %}
                     </select>
 					<label for="category_name">Choose Category</label>
@@ -23,7 +27,7 @@
                 <div class="input-field col s12">
                     <i class="fas fa-pencil-alt prefix dark-grey-text"></i>
                     <input id="tips_name" name="tips_name" minlength="3" maxlength="25"
-                        type="text" class="validate" required>
+                        value="{{tips.tips_name}}" type="text" class="validate" required>
                     <label for="tips_name">Tip Name</label>
                 </div>
             </div>
@@ -32,7 +36,9 @@
                 <div class="input-field col s12">
                     <i class="fas fa-align-left prefix dark-grey-text"></i>
                     <textarea id="tips_little" name="tips_little" minlength="15"
-                        maxlength="90" class="materialize-textarea validate" required></textarea>
+                        maxlength="90" class="materialize-textarea validate" required>
+                        {{-tips.tips_little-}}
+                    </textarea>
                     <label for="tips_little">Short Description</label>
                 </div>
             </div>
@@ -41,7 +47,9 @@
                 <div class="input-field col s12">
                     <i class="fas fa-align-left prefix dark-grey-text"></i>
                     <textarea id="tips_longer" name="tips_longer" minlength="70"
-                        maxlength="3000" class="materialize-textarea validate" required></textarea>
+                        maxlength="3000" class="materialize-textarea validate" required>
+                        {{-tips.tips_longer-}}
+                    </textarea>
                     <label for="tips_longer">Long Description</label>
                 </div>
             </div>
@@ -50,7 +58,9 @@
                 <div class="input-field col s12">
                    <i class="fas fa-camera-retro prefix black-text"></i>                    
                    <textarea id="tips_img" name="tips_img" class="materialize-textarea validate"
-                      minlength="10" maxlength="300" required></textarea>
+                      minlength="10" maxlength="300" required>
+                      {{-tips.tips_img-}}
+                    </textarea>
                    <label for="tips_img">Add a photo by providing a link</label>
                 </div>
              </div>
@@ -58,16 +68,17 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-calendar-alt prefix dark-grey-text"></i>
-                    <input id="tips_date" name="tips_date" type="text" class="datepicker validate" required>
+                    <input id="tips_date" name="tips_date" value="{{tips.tips_date}}" type="text" class="datepicker validate" required>
                     <label for="tips_date">Today's Date</label>
                 </div>
             </div>
-            <!-- submit button -->
+            <!-- edit button -->
             <div class="row">
                 <div class="col s12 center-align">
                     <button type="submit" class="btn-large black text-shadow">
-                        Add Tip <i class="fas fa-plus-square right"></i>
+                        Edit Tip <i class="fas fa-plus-square right"></i>
                     </button>
+                    <a href="{{  url_for('profile', username=session['user'])}}" class="btn-large black text-shadow">Cancel</a>
                 </div>
             </div>
         </form>
