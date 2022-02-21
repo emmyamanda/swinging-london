@@ -19,19 +19,40 @@ mongo = PyMongo(app)
 
 
 @app.route("/")
+def index():
+    return render_template("tips.html")
 
 
-@app.route("/get_tips")
-def get_tips():
-    tips = mongo.db.tips.find()
-    return render_template("tips.html", tips=tips)
+@app.route("/tips")
+def tips():
+    """
+    On the tips page, pulls through every indiviudal tip from the tips
+    collection in MongoDB then sorts it in order that the tip has been added,
+    newest to oldest.
+    """
+    category = list(mongo.db.tips.find().sort("tip_date", -1))
+    return render_template("tips.html", category=category)
 
 
-@app.route('/get_tips/<category_name>')
-def type_tips(category_name):
+@app.route('/tips/<category_name>')
+def filter_tips(category_name):
     category = list(mongo.db.tips.find({
-        "category_name": category_name}))
-    return render_template("tips.html", category=category)    
+        "category_name": category_name}).sort("tip_date", -1))
+    return render_template(
+        "tips.html", tips=tips, page_title=category_name)
+
+
+@app.route('/tip/<tip_id>')
+def tip_page(tip_id):
+    category = mongo.db.tips.find_one({"_id": ObjectId(tip_id)})
+    return render_template("tips.html", category=category)
+
+
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.form.get("query")
+    category = list(mongo.db.tips.find({"$text": {"$search": query}}))
+    return render_template("tips.html", category=category)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -100,7 +121,7 @@ def profile(username):
 def logout():
     flash("You have been logged out")
     session.pop("user")
-    return redirect(url_for("get_tips"))
+    return redirect(url_for("tips"))
 
 
 @app.route("/add_tips", methods=["GET", "POST"])
@@ -108,42 +129,50 @@ def add_tips():
     if request.method == "POST":
         tips = {
             "category_name": request.form.get("category_name"),
-            "tips_name": request.form.get("tips_name"),
-            "tips_little": request.form.get("tips_little"),
-            "tips_longer": request.form.get("tips_longer"),
-            "tips_img": request.form.get("tips_img"),
-            "tips_date": request.form.get("tips_date"),
-            "created_by": session["user"]
+            "tip_name": request.form.get("tip_name"),
+            "tip_short": request.form.get("tip_short"),
+            "tip_long": request.form.get("tip_long"),
+            "tip_img": request.form.get("tip_img"),
+            "tip_date": request.form.get("tip_date"),
+            "created_by": session["user"],
         }
         mongo.db.tips.insert_one(tips)
         flash("Tip Successfully Added")
         return redirect(url_for("profile",
                 username=session["user"]))
 
-    categories = mongo.db.categories.find().sort("tips_date", 1)
+    categories = mongo.db.categories.find().sort("tip_date", 1)
     return render_template("add_tips.html", categories=categories)
 
 
-@app.route("/edit_tips/<tips_id>", methods=["GET", "POST"])
-def edit_tips(tips_id):
+@app.route("/edit_tips/<tip_id>", methods=["GET", "POST"])
+def edit_tips(tip_id):
     if request.method == "POST":
         submit = {
             "category_name": request.form.get("category_name"),
-            "tips_name": request.form.get("tips_name"),
-            "tips_little": request.form.get("tips_little"),
-            "tips_longer": request.form.get("tips_longer"),
-            "tips_img": request.form.get("tips_img"),
-            "tips_date": request.form.get("tips_date"),
-            "created_by": session["user"]
+            "tip_name": request.form.get("tip_name"),
+            "tip_short": request.form.get("tip_short"),
+            "tip_long": request.form.get("tip_long"),
+            "tip_img": request.form.get("tip_img"),
+            "tip_date": request.form.get("tip_date"),
+            "created_by": session["user"],
         }
-        mongo.db.tips.update({"_id": ObjectId(task_id)}, submit)
+        mongo.db.tips.update({"_id": ObjectId(tip_id)}, submit)
         flash("Tip Successfully Updated")
         return redirect(url_for(
             "profile", username=session["user"]))
 
-    tips = mongo.db.tips.find_one({"_id": ObjectId(task_id)})
-    categories = mongo.db.categories.find().sort("tips_name", -1)
+    tips = mongo.db.tips.find_one({"_id": ObjectId(tip_id)})
+    categories = mongo.db.categories.find().sort("tip_name", -1)
     return render_template("edit_tips.html", tips=tips, categories=categories)
+
+
+@app.route("/delete_tips/<tip_id>")
+def delete_tip(tip_id):
+    mongo.db.tips.remove({"_id": ObjectId(tip_id)})
+    flash("Tip Successfully Deleted")
+    return redirect(url_for(
+            "profile", username=session["user"]))
 
 
 if __name__ == "__main__":
