@@ -17,6 +17,10 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+"""
+Code sourced from Code Institute walkthrough project and Adam 
+mentioned and linked in README.md
+"""
 
 @app.route("/")
 @app.route("/tips")
