@@ -19,10 +19,6 @@ mongo = PyMongo(app)
 
 
 @app.route("/")
-def index():
-    return render_template("tips.html")
-
-
 @app.route("/tips")
 def tips():
     """
@@ -30,14 +26,14 @@ def tips():
     collection in MongoDB then sorts it in order that the tip has been added,
     newest to oldest.
     """
-    category = list(mongo.db.tips.find().sort("tip_date", -1))
+    category = list(mongo.db.tips.find().sort("tips_date", -1))
     return render_template("tips.html", category=category)
 
 
 @app.route('/tips/<category_name>')
 def filter_tips(category_name):
     category = list(mongo.db.tips.find({
-        "category_name": category_name}).sort("tip_date", -1))
+        "category_name": category_name}).sort("tips_date", -1))
     return render_template(
         "tips.html", tips=tips, page_title=category_name)
 
@@ -129,11 +125,11 @@ def add_tips():
     if request.method == "POST":
         tips = {
             "category_name": request.form.get("category_name"),
-            "tip_name": request.form.get("tip_name"),
-            "tip_short": request.form.get("tip_short"),
-            "tip_long": request.form.get("tip_long"),
-            "tip_img": request.form.get("tip_img"),
-            "tip_date": request.form.get("tip_date"),
+            "tips_name": request.form.get("tips_name"),
+            "tips_short": request.form.get("tips_short"),
+            "tips_longer": request.form.get("tips_longer"),
+            "tips_img": request.form.get("tips_img"),
+            "tips_date": request.form.get("tips_date"),
             "created_by": session["user"],
         }
         mongo.db.tips.insert_one(tips)
@@ -150,11 +146,11 @@ def edit_tips(tip_id):
     if request.method == "POST":
         submit = {
             "category_name": request.form.get("category_name"),
-            "tip_name": request.form.get("tip_name"),
-            "tip_short": request.form.get("tip_short"),
-            "tip_long": request.form.get("tip_long"),
-            "tip_img": request.form.get("tip_img"),
-            "tip_date": request.form.get("tip_date"),
+            "tips_name": request.form.get("tips_name"),
+            "tips_short": request.form.get("tips_short"),
+            "tips_longer": request.form.get("tips_longer"),
+            "tips_img": request.form.get("tips_img"),
+            "tips_date": request.form.get("tips_date"),
             "created_by": session["user"],
         }
         mongo.db.tips.update({"_id": ObjectId(tip_id)}, submit)

@@ -1,16 +1,22 @@
 # Swinging London
 
-***ADD LIVE PROJECT HERE
+[View live project here](https://emmyamanda.github.io/swinging-london/)
 
 For my third Milestone Project for Code Institute I have created Swinging London where users can read tips, create them, edit and delete tips and make an profile. Tips users can add is regarding London, such as where to eat, stay and explore. 
 
 # View Project - 
 
-*** ADD LIVE PRJECT HERE  
-*** ADD GITHUB HERE 
+Live Project: [here](https://swinging-london.herokuapp.com/)
+GitHub Repo: [here](https://emmyamanda.github.io/swinging-london/)
 
 ## Content
 
+- [UX] (#ux)
+    [Strategy] (#strategy)
+        - [Objectives] (#objectives)
+        - [User Stories](#user-stories)
+        - [Frequent user goals](#frequent-user-goals)
+        - [Admin goals](#admin-goals)
 
 # UX
 
@@ -47,3 +53,13 @@ As Admin I want to:
 
 Manage all tips created by being able to read, update, delete and create. 
 
+## Scope
+
+### Current features 
+
+* Base HTML (all pages)
+    - Navbar on desktop and mobile display.
+
+# Credits
+
+- This project was sourced from Adam Delancey - https://github.com/adamdelancey/ms3-tips and Code Institute Task Manager Mini Project, (https://codeinstitute.net/) 

@@ -8,29 +8,9 @@
       <p>Become part of our London community where you can explore the best places to eat, drinks and explore tips provided by our members and 
           recommend places yourself! 
       </p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
    </div>
 </div>
 
-<div>
-   <form action="{{ url_for('search') }}" method="post">
-      <div class="row">
-         <div class="input-field col s12 m4 offset-m4 center-align ">
-            <i class="fas fa-search prefix"></i>
-            <input type="text" name="query" id="query" minlength="3" class="validate" required>
-            <label for="query">Search Tips</label> 
-         </div>
-      </div>
-      <div class="row">
-         <div class="col s12 m6 offset-m3 center-align">
-            <button type="submit" class="white black-text  btn">
-            <i class="fas fa-search left"></i>Search
-            </button>
-            <a href="{{ url_for('tips')}}" class="grey darken-4 white-text btn">Reset</a>
-         </div>
-      </div>
-   </form>
-</div>
 {% if category|length > 0 %}
 <div class="container" >
    <div class="row">
@@ -39,20 +19,13 @@
          <div class="card">
             <div class="card-image">
                <a href="{{url_for('tip_page', tip_id=cat._id)}}">
-               <img src="{{cat.tip_img}}" alt="{{cat.tip_name}}">   
+               <img src="{{cat.tips_img}}" alt="{{cat.tips_name}}">   
                </a>                 
             </div>
             <div class="card-content" style="padding-top:12px; padding-bottom:12px">
                <p class="uppercase">{{cat.category_name}}</p>
-               <p><strong>{{ cat.tip_name }}</strong></p>
-               <p>{{ cat.tip_short }}</p>
-            </div>
-            <div class="card-action" style="padding-top:0px; padding-bottom:2px">
-               {% if cat.created_by|lower == "admin"|lower %}
-               <p><em>Edited by {{cat.created_by}} on {{cat.tip_date}}</em></p>
-               {% else %}
-               <p><em>Created by {{cat.created_by}} on {{cat.tip_date}}</em></p>
-               {% endif %}                  
+               <p><strong>{{ cat.tips_name }}</strong></p>
+               <p>{{ cat.tips_short }}</p>
             </div>
          </div>
       </div>
