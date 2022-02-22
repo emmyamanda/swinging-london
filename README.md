@@ -60,6 +60,16 @@ Manage all tips created by being able to read, update, delete and create.
 * Base HTML (all pages)
     - Navbar on desktop and mobile display.
 
+* Tip Page
+    - Home page that shows tips people added. 
+
+* Login / Register Page 
+    - Easy to navigate to login and register to site.
+
+* Profile Page 
+    - View profile where you can add tip through.
+
+
 # Credits
 
-- This project was sourced from Adam Delancey - https://github.com/adamdelancey/ms3-tips and Code Institute Task Manager Mini Project, (https://codeinstitute.net/) 
+- This project was sourced and credited from Adam Delancey - https://github.com/adamdelancey/ms3-tips and Code Institute Task Manager Mini Project, (https://codeinstitute.net/) 
