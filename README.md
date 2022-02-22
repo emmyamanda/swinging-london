@@ -72,4 +72,4 @@ Manage all tips created by being able to read, update, delete and create.
 
 # Credits
 
-- This project was sourced and credited from Adam Delancey - https://github.com/adamdelancey/ms3-tips and Code Institute Task Manager Mini Project, (https://codeinstitute.net/) 
+- This project was sourced and credited from Adam Delancey - https://github.com/adamdelancey/ms3-tips/commit/c7b5002c8f73d3672b839ec10fe3537cc1f2adae - (https://ms3-tips.herokuapp.com/) and Code Institute Task Manager Mini Project, (https://codeinstitute.net/) 
